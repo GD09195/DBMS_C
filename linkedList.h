@@ -50,9 +50,9 @@ DATA createDataPackage(DATA nuevosDatos){
 
 DATA createDataPackagePerField(char* idCliente, char*nombre, char* apPaterno, char* apMaterno, char* fechaAlta, float deuda, float credito){
 
-  DATA datos = (DATA)malloc(sizeof(Data));
+  DATA datos = createData();
   datos -> idCliente = malloc(strlen (idCliente) );
-  datos -> nombre = malloc (strlen (nombre) );
+  datos -> nombre = malloc(strlen (nombre) );
   datos -> apPaterno = malloc(strlen ( apPaterno) );
   datos -> apMaterno = malloc(strlen ( apMaterno) );
   datos -> fechaAlta = malloc(strlen ( fechaAlta) );

@@ -5,26 +5,23 @@
 #include "extraFunctions.h"
 
 
-NODE menuPrincipal(NODE lista);
-NODE agregarRegistroEnLista(NODE);
-void agregarRegistroArchivo(NODE);
+void menuPrincipal(void);
+void agregarRegistroEnLista(void);
+void agregarRegistroArchivo(void);
 void modificarRegistro();
 void borrarRegistro();
 void mostrarRegistros();
 
 int main(){
 
-  NODE lista = createList();
-
-  menuPrincipal(lista);
+  menuPrincipal();
+  validarID("myID");
 
   return 0;
 }
 
 
-NODE menuPrincipal(NODE lista){
-
-
+void menuPrincipal(){
 
   int opc = 0 ;
 
@@ -42,7 +39,7 @@ NODE menuPrincipal(NODE lista){
 
       case 1:
         printf("\n----Agregar Registro----\n");
-        lista = agregarRegistroEnLista(lista);
+        agregarRegistroEnLista();
         break;
       case 2:
 
@@ -57,10 +54,10 @@ NODE menuPrincipal(NODE lista){
 
   }while(opc != 5);
 
-  return lista;
+  return;
 }
 
-NODE agregarRegistroEnLista(NODE lista){
+void agregarRegistroEnLista(){
 
   DATA paqueteRegistro = createData();
 
@@ -72,7 +69,8 @@ NODE agregarRegistroEnLista(NODE lista){
   float credito = 0 ;
   float deuda = 0;
 
-  printf("\nIngrese los siguientes datos: ");
+
+  printf("\nIngrese los siguientes datos: \n ");
   printf("\nidCliente: ");
   getchar();
   scanf("%[^\n]", idCliente);
@@ -90,14 +88,38 @@ NODE agregarRegistroEnLista(NODE lista){
   getchar();
   scanf("%[^\n]", apMaterno);
 
-  printf("\nFecha de Alta: ");
+  do{
+
+    getchar();
+    printf("\nFecha de Alta (dd/mm/aaaa): ");
+    scanf("%[^\n]", fechaAlta);
+   
+  }while(!esFechaValida(fechaAlta));
+
   getchar();
-  scanf("%[^\n]", fechaAlta);
-  //Validar Formato de fecha de alta.
 
-  insertTail(lista, paqueteRegistro);
+  do{
+    
+    printf("\nCredito: ");
+    scanf("%f", &credito);
 
+  }while(credito < 0);
+  
+  do{
+    
+    printf("\nDeuda: ");
+    scanf("%f", &deuda);
 
+  }while(deuda < 0);
+  
+  paqueteRegistro =createDataPackagePerField(idCliente, nombre, apPaterno, apMaterno, fechaAlta, credito, deuda);
+  registrarTxt(paqueteRegistro);
 
-  return lista;
+  return;
 }
+
+
+
+
+
+
